@@ -1,0 +1,29 @@
+#html code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cude.css">
+    <title>Document</title>
+</head>
+<body>
+    <section class ="header">
+        <nav>
+    <div class="head">
+       <p id="logo">CUDE </p>
+  <p class="tagl"><i>Close your daily entry</i></p>
+ 
+ <div>
+    <pre CLASS="links"><a href="http://www.mnnit.ac.in/">HOME</a> <a href="http://www.mnnit.ac.in/index.php/facilities/hostels"></a> <a href="rules.html">RULES</a>  <a href="http://www.mnnit.ac.in/index.php/facilities/hostels/rules">HOSTELS</a> <a href="http://www.mnnit.ac.in/index.php/contact-us">CONTACTS</a> </pre>
+ </div>
+</div>
+</nav>
+</section>   
+
+<div class="main">
+    <img src="final.jpg" alt="logo" class="bg">
+<br>
+</body>
+</html>
