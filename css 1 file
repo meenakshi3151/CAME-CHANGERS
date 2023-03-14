@@ -1,0 +1,60 @@
+ .contact{
+     text-align: center;
+     margin: auto;
+     font-size: 40px;
+     color:rgb(32, 26, 8);
+ }
+ .h{
+     text-align: center;
+     margin: auto;
+     font-size: 30px;
+     color:rgb(108, 39, 39);;
+ }
+ .org0{
+     text-align: center;
+     margin: auto;
+     font-size: 35px;
+     color:white;
+ 
+ }
+ .org1{
+     text-align:center;
+     float:center;
+     margin:auto;
+     font-size: 30px;
+     color:rgb(245, 238, 238);
+ }
+ .top{
+    text-align: right;
+ }
+ /* .nav-links{
+   
+     text-align:justify;
+     margin:0px 200px 4px 0px;
+ }
+ .nav-links ul li{
+     list-style: none;
+ display:inline-block;
+ padding:0px 0px;
+ position: relative;
+ 
+ }
+ .nav-links ul li::after{
+     content: '';
+     width:0%;
+ } */
+ 
+    .links{
+     text-align: center;
+     font-size: 25px;
+ background-color:rgb(107, 107, 243);
+    }
+    .top{
+     text-indent: 5em;
+ 
+    }
+ .match{
+     text-align:center;
+     margin:auto;
+     color:firebrick;
+    }
