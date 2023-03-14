@@ -1,0 +1,94 @@
+<?php
+session_start();
+//generating connection with the database cude
+  global $query1,$conn;
+$server="localhost";
+$username="root";
+$password="";
+
+$db="cude";
+$conn=mysqli_connect($server,$username,$password,$db);
+//Storing the sign_in details of the user in user_details table under cude database.
+if(isset($_POST['name'])){
+ $name=$_POST['name'];
+$gender=$_POST['gender'];
+$password=$_POST['password'];
+$phone=$_POST['phone'];
+$email=$_POST['email'];
+$regno=$_POST['regno'];
+//Now we are checking if the password is matching with confirm password entered by the user.
+$conpassword=$_POST['conpassword'];
+if($password!=$conpassword){
+echo "<p class='match'>The two passwords do not match</p>";
+}
+//If not then we insert the details into the table named as 'user_details' using INSERT INTO command.
+else{
+    $query="INSERT INTO `user_details` (`Name`, `Reg_No`, `Mobile_No`, `gender`,`email`,`Password`) VALUES ( '$name', '$regno', '$phone', '$gender','$email', '$password');";
+  
+  //generating a query on the connection with the database.  
+if($conn->query($query)==true){
+    //echo"SUCCESSFULL";
+  }
+else{
+   // echo "ERROR:$sql<br"
+}
+echo "<p class='match'You have signed up successfully.</p>";
+}
+}
+//Storing the login_in details of the user in login_details table under cude database in mysql.
+//using $_POST commands we retreive the data from the respective forms in html created above.
+if(isset($_POST['regno1'])){
+    $server="localhost";
+    $username="root";
+    $password="";
+    $db="cude";
+    $conn=mysqli_connect($server,$username,$password,$db);
+    $regno1=$_POST['regno1'];
+    $password1=$_POST['password1'];
+//Declaring a variable that selects the row containing registration number and password from the sign in table(user_details).
+    $query1="SELECT * FROM `user_details` WHERE `Reg_no`='$regno1' AND `Password`='$password1'";
+    //
+$results=mysqli_query($conn,$query1);
+//checking if there there is a row that contains same registration number and password in user_details as entered by the user in login_details
+//using mysqli_num_rows.
+if(mysqli_num_rows($results)>0){
+//We declare a variable $statement and it is responsible for fetching the email address and pasting it in login_details.
+$statement = mysqli_prepare($conn, "SELECT email FROM user_details WHERE Reg_No = ?");
+// This is used for binding/connecting $statement and $regno1.
+mysqli_stmt_bind_param($statement, "s", $regno1);
+// Now we are executing the query.
+mysqli_stmt_execute($statement);
+$result = mysqli_stmt_get_result($statement);
+if (mysqli_num_rows($result) > 0) {
+  while($row = mysqli_fetch_assoc($result)) {
+    $email=$row['email'];
+    $log="INSERT INTO `login_details` (`out_time`, `Reg_no`, `in_time`, `Password`,`email`) VALUES (current_timestamp(), '$regno1', current_timestamp(), '$password1','$email');";
+     if($conn->query($log)==true){
+         //echo "succ";
+      
+         echo "<p class='match'>You have logged in successfully</p><br>";
+         //We added the time-limit at 22:00 which is common for all the hostellers irrespective of gender.
+       $loginTimeLimit = '22:00';
+    // time() will generate the current time in 24-hour format as per the server.
+    $time=time();
+     $hour_minutes = date('h:i', $time);
+    // Check if the current time is greater than the login time limit
+    if ($hour_minutes > $loginTimeLimit) {
+          echo "<p class='match'>You have exceeded the in time</p>";
+    }
+      else {
+      echo "<p class='match'>You have successfully completed your daily entry</p>";
+        }
+     }
+  }
+}
+mysqli_stmt_close($statement);  
+    }  
+else{
+       echo "<p class='match'>Entered details are invalid</p>";
+ }
+ //we are closing the database connection.
+  $conn->close();
+}
+
+?>
