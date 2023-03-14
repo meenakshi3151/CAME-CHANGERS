@@ -1,0 +1,37 @@
+<?php
+session_start();
+//generating connection with the database cude
+  global $query1,$conn;
+$server="localhost";
+$username="root";
+$password="";
+
+$db="cude";
+$conn=mysqli_connect($server,$username,$password,$db);
+//Storing the sign_in details of the user in user_details table under cude database.
+if(isset($_POST['name'])){
+ $name=$_POST['name'];
+$gender=$_POST['gender'];
+$password=$_POST['password'];
+$phone=$_POST['phone'];
+$email=$_POST['email'];
+$regno=$_POST['regno'];
+//Now we are checking if the password is matching with confirm password entered by the user.
+$conpassword=$_POST['conpassword'];
+if($password!=$conpassword){
+echo "<p class='match'>The two passwords do not match</p>";
+}
+//If not then we insert the details into the table named as 'user_details' using INSERT INTO command.
+else{
+    $query="INSERT INTO `user_details` (`Name`, `Reg_No`, `Mobile_No`, `gender`,`email`,`Password`) VALUES ( '$name', '$regno', '$phone', '$gender','$email', '$password');";
+  
+  //generating a query on the connection with the database.  
+if($conn->query($query)==true){
+    //echo"SUCCESSFULL";
+  }
+else{
+   // echo "ERROR:$sql<br"
+}
+echo "<p class='match'You have signed up successfully.</p>";
+}
+}
