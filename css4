@@ -1,0 +1,27 @@
+html,body{
+    height: 100%;
+    margin: 0;
+    font-size: 16px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 400;
+    line-height:1.8em;
+    color:darkblue;
+    text-align: center;
+    background-color: #e2d3dc;
+    padding-bottom: 10px;
+}
+
+.rules{
+    font-size: 24px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 400;
+}
+.section{
+    padding: 50px 80px;
+    text-align: center;
+}
+
+.section-light{
+    background-color:  #e2d3dc;
+    color:red;
+}
