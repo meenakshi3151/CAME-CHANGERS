@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="came.css">
+    <title>Document</title>
+    <style> .box{
+        
+        border:4px solid red;
+        width: 500px;
+        height: 400px;
+        font-size: 25px;
+        padding-left: 6px;
+        padding-top: 5px;
+text-align: center;
+margin:auto;
+
+    }
+    .box1{
+        
+        border:4px solid red;
+        width: 550px;
+        height: 600px;
+        font-size: 25px;
+        padding-left: 6px;
+        padding-top: 1px;
+
+margin:auto;
+    }
+    </style>
+</head>
+<body>
+    <section class ="header">
+        <nav>
+    <div class="head">
+       <p id="logo">CUDE </p>
+  <p class="tagl"><i>Close your daily entry</i></p>
+    <pre CLASS="links"><a href="http://www.mnnit.ac.in/" style="color:crimson">HOME</a> <a href="http://www.mnnit.ac.in/index.php/facilities/hostels" style="color:crimson"></a><a href="rules.html" style="color:crimson">RULES</a> <a href="http://www.mnnit.ac.in/index.php/facilities/hostels/rules"style="color:crimson">HOSTELS</a><a href="http://www.mnnit.ac.in/index.php/contact-us"style="color:crimson">CONTACTS</a> </pre>
+
+</div>
+</nav>
+</section> 
+
+<div class="main">
+    
+<br>
+    <div class="box" id="box">
+<div><h1> LOGIN</h1></div>
+
+<form action="final.php" method="post">
+    <div><label>Registration Number</label></div>
+    <div>
+<input type="text" name="regno1" id="unq" placeholder="Enter your registration no" required> </div><div>
+<label>Password</label></div><div>
+<input type="password" name="password1" id="password" placeholder="Enter your password" required></div>
+<label>Time</label>
+<div id="span" class="time" >
+    
+    <input type="radio" name="time" id="Intime">
+    
+    <span  class="time" id="Intime">In time</span>
+    
+    <input type="radio" name="time" id="Outtime">
+    <span id="Outtime" class="time">Out time</span>
+    </div><div>
+<button class="btn">Submit</button></div>
+</form>
+</div>
+<br>
+<p class="reg"><b>If you haven't registered yet .Sign in!</b></p>
+<div class="inpage">
+<a href="#pages" style="color:crimson">signin</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<en><en><a href="#page2" style="color:crimson">about us</a></en></en>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<en><en><a href="#page3" style="color:crimson">contact us</a></en></en></div>
+<!-- <?php
+if($login==true && $inslog==true){
+echo "<p class='match'>You have logged in successfully</p>";
+}
+else($login==false && $inslog==true){
+  echo "<p class='match'>Entered details are invalid</p>";
+}
+else if{
+
+}
+?>
+<?php
+if($de==true && $login==true){
+  echo "<p class='match'>You have successfully completed your daily entry</p>";
+}
+else if($de==false && $login==true){
+  echo "<p class='match'>You have exceeded the in time</p>";
+}
+else{
+  //
+}
+?> -->
+
+
+</div>
+<div class="pages">
+    <div class="box1" id="box1"> 
+<h1 class="comp">SIGN IN</h1>
+<br>
+
+
+  <form action="final.php" method="post">
+  <label >Name</label>
+   <input type="text" name="name" id="name" placeholder="Enter your full name"required>
+    <label >Registration no</label>
+    <input type="text" name="regno" id="regno" required placeholder="Enter registration number" >
+    <label>Gender :</label>
+    <input type="text" name="gender" id="gender" required placeholder="Enter your Gender">
+    <label>Email :</label>
+    <input type="text" name="email" id="email" required placeholder="Enter your email address" >
+    <label>Phone no.</label>
+    
+    <input type="tel" pattern="[0-9]{10}" name="phone" id="phone" required placeholder="Enter your phone number">
+    <label>Password</label>
+    <input type="password" name="password" id="password" required placeholder="Create a password"> 
+    <label>Confirm Password</label>
+    <input type="password" name="conpassword" id="conpassword" required placeholder="Confirm password" ><br>
+    <button class="btn">Submit</button>
+   </form>
+   <br><br><br>
+   </div>
