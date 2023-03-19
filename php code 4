@@ -1,0 +1,151 @@
+<?php
+$insert=false;
+$emailc=false;
+$signin=false;
+$inslog=false;
+$login=false;
+global $de;
+$passe=false;
+$pri=false;
+// session_start();
+//generating connection with the database cude
+  global $query1,$conn;
+$server="localhost";
+$username="root";
+$password="";
+
+$db="cude";
+$conn=mysqli_connect($server,$username,$password,$db);
+//Storing the sign_in details of the user in user_details table under cude database.
+// $signin=false;
+
+if(isset($_POST['name'])){
+ $insert=true;
+ $name=$_POST['name'];
+$gender=$_POST['gender'];
+$password=$_POST['password'];
+$phone=$_POST['phone'];
+$email=$_POST['email'];
+$regno=$_POST['regno'];
+//Now we are checking if the password is matching with confirm password entered by the user.
+/*In the user_details table we have seven columns(Name,Registration number,email,gender,password,phone number,serial number,
+)*/
+$conpassword=$_POST['conpassword'];
+if($password!=$conpassword){
+  $passe=true;
+// echo "<p class='match'>The two passwords do not match</p>";
+ }
+//If not then we insert the details into the table named as 'user_details' using INSERT INTO command.
+else{
+  $email1 =$email;
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    
+// check if the primary key already exists in the table
+$query4 = "SELECT * FROM user_details WHERE Reg_no = '$regno'";
+$resultp = $conn->query($query4);
+if (mysqli_num_rows($resultp)>0) {
+   $pri=true;
+//  echo " <p class='match'>The primary key value entered already exists</p>"; 
+} 
+else {
+  // the primary key doesn't exist, proceed with
+$query="INSERT INTO `user_details` (`Name`, `Reg_No`, `Mobile_No`, `gender`,`email`,`Password`) VALUES ( '$name', '$regno', '$phone', '$gender','$email', '$hashed_password');";
+ $signin=true;
+  //generating a query on the connection with the database.  
+if($conn->query($query)==true){
+    //echo"SUCCESSFULL";
+  }
+else{
+   // echo "ERROR:$sql<br"
+}// echo "<p class='match'You have signed up successfully.</p>";
+       }
+     }
+    }
+
+if(isset($_POST['regno1'])){
+  $inslog=true;
+    $server="localhost";
+    $username="root";
+    $password="";
+    $db="cude";
+    $conn=mysqli_connect($server,$username,$password,$db);
+    $regno1=$_POST['regno1'];
+    $password1=$_POST['password1'];
+   /*In login_details table we have seven columns (out_time,in_time,location,registration number,Password,serial number,email)*/
+    //Declaring a variable that selects the row containing registration number and password from the sign in table(user_details).
+    $query1="SELECT * FROM `user_details` WHERE `Reg_no`=? ";
+  //Storing the login_in details of the user in login_details table under cude database in mysql.
+//using $_POST commands we retreive the data from the respective forms in html created above.
+$results=mysqli_query($conn,$query1);
+mysqli_stmt_bind_param($results, "s", $regno1);
+mysqli_stmt_execute($results);
+$resultt = mysqli_stmt_get_result($results);
+$row = mysqli_fetch_assoc($resultt);
+$hashed_password = $row['Password'];
+//checking if there there is a row that contains same registration number and password in user_details as entered by the user in login_details
+//using mysqli_num_rows.
+
+  if (password_verify($password1, $hashed_password)) {
+   
+  
+//We declare a variable $statement and it is responsible for fetching the email address and pasting it in login_details.
+$statement = mysqli_prepare($conn, "SELECT `email` FROM user_details WHERE Reg_No = ?");
+//This is used for binding/connecting $statement and $regno1.
+mysqli_stmt_bind_param($statement, "s", $regno1);
+// Now we are executing the query.
+mysqli_stmt_execute($statement);
+$result = mysqli_stmt_get_result($statement);
+if (mysqli_num_rows($result) > 0) {
+  while($row = mysqli_fetch_assoc($result)) {
+    $email=$row['email'];
+    $log="INSERT INTO `login_details` (`out_time`, `Reg_no`, `in_time`, `Password`,`email`) VALUES (current_timestamp(), '$regno1', current_timestamp(), '$password1','$email');";
+    $login=true;
+     if($conn->query($log)==true){
+       $myDate = new DateTime('now', new DateTimeZone('Asia/Calcutta'));
+     
+         $start_time = new DateTime('10:00 PM', new DateTimeZone('Asia/Calcutta'));
+             
+              $end_time = new DateTime('6:00 AM', new DateTimeZone('Asia/Calcutta'));
+$de=false;
+// echo "Start time: " . $start_time->format('h:i A') . "<br>";
+// echo "End time: " . $end_time->format('h:i A') . "<br>";
+// echo " current time: " . $myDate->format('h:i A') . "<br>";
+     if ($myDate >= $start_time && $myDate <= $end_time) {
+        $server="localhost";
+    $username="root";
+    $password="";
+    $db="cude";
+     $conn=mysqli_connect($server,$username,$password,$db);
+$late="INSERT INTO  `late_entries` (`Reg_no`,`Date_time`) VALUES ('$regno1',current_timestamp());";
+           if($conn->query($late)==true){
+                       }
+  // echo "<p class='match'>You have exceeded the in time</p>";
+        }
+      else {
+      $de=true;
+     // echo "<p class='match'>You have successfully completed your daily entry</p>";
+        } } }}}
+      
+  else{
+     //  echo "<p class='match'>Entered details are invalid</p>";
+    }
+  }
+
+// if(isset($_POST['bool'])){
+//     $server="localhost";
+//     $username="root";
+//     $password="";
+//     $db="cude";
+//     $conn=mysqli_connect($server,$username,$password,$db);
+//    $sqllate = "SELECT * FROM `late_entries`";
+// $resultl = mysqli_query($conn, $sqllate);
+// while ($row = mysqli_fetch_array($resultl)) {
+//  echo "<tr>";
+//     echo "<td>" . $row['Reg_no'] . "</td>";
+//     echo "<td>" . $row['Date_time'] . "</td>";
+//     // echo "<td>" . $row['column3'] . "</td>";
+//     echo "</tr>";
+// }
+// mysqli_close($conn);
+// }
+?>
